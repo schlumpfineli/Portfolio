@@ -88,6 +88,17 @@ function RedesignCaseStudyPage() {
           <p>Verfuegbarkeiten, Bestaetigungszustand und Fehlermeldungen sind sichtbar.</p>
           <p>Wiederverwendbare Komponenten reduzieren UI-Duplikate.</p>
           <p>State-Management in React sorgt fuer konsistente Interaktionen auf Mobile.</p>
+          <p>
+            Die Kalender-Logik trennt Business-Zustaende (Verfuegbarkeit) von
+            UI-Zustaenden (Hover, Focus, Selection). Durch Prioritaetsregeln werden
+            Zustaende eindeutig dargestellt - besonders wichtig in sensiblen
+            Care-Kontexten, in denen Unsicherheit reduziert werden soll.
+          </p>
+          <p>
+            Die Uhrzeit-Logik trennt Business-Zustaende (Verfuegbarkeit, Tageszeit)
+            von UI-Zustaenden (Hover, Focus, Selection). Beim Wechsel des Datums wird
+            die Auswahl bewusst zurueckgesetzt, um inkonsistente Buchungen zu vermeiden.
+          </p>
         </div>
         <Placeholder label="Termininterface - State Uebersicht" />
       </section>

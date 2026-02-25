@@ -4,22 +4,17 @@ import TimeSlotSelector from '../components/booking/TimeSlotSelector'
 import BookingForm from '../components/booking/BookingForm'
 import Confirmation from '../components/booking/Confirmation'
 
-const BLOCKED_DAYS = [
-  '2026-03-06',
-  '2026-03-12',
-  '2026-03-19',
-  '2026-04-03',
-  '2026-04-09',
-]
-
-const TIME_SLOTS = [
-  { time: '09:00', disabled: false },
-  { time: '10:00', disabled: false },
-  { time: '11:00', disabled: true },
-  { time: '13:30', disabled: false },
-  { time: '15:00', disabled: false },
-  { time: '16:30', disabled: true },
-]
+const BASE_SLOT_TIMES = ['09:00', '10:00', '11:00', '13:30', '15:00', '16:30']
+const DEFAULT_DISABLED_TIMES = ['11:00', '16:30']
+const DATE_SLOT_OVERRIDES = {
+  '2026-03-06': { disabledTimes: BASE_SLOT_TIMES },
+  '2026-03-12': { disabledTimes: BASE_SLOT_TIMES },
+  '2026-03-19': { disabledTimes: BASE_SLOT_TIMES },
+  '2026-04-03': { disabledTimes: BASE_SLOT_TIMES },
+  '2026-04-09': { disabledTimes: BASE_SLOT_TIMES },
+  '2026-03-10': { disabledTimes: ['10:00', '13:30'] },
+  '2026-03-17': { disabledTimes: ['09:00', '15:00'] },
+}
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const INITIAL_FORM_DATA = {
@@ -55,6 +50,37 @@ function toIsoDate(date) {
   const month = String(date.getMonth() + 1).padStart(2, '0')
   const day = String(date.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
+}
+
+function toDateOnly(date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+}
+
+function parseTimeToMinutes(time) {
+  const [hours, minutes] = time.split(':').map(Number)
+  return hours * 60 + minutes
+}
+
+function buildSlotsForDate(date, now = new Date()) {
+  const override = DATE_SLOT_OVERRIDES[toIsoDate(date)]
+  const disabledTimes = override?.disabledTimes ?? DEFAULT_DISABLED_TIMES
+  const disabledSet = new Set(disabledTimes)
+  const isToday = toIsoDate(toDateOnly(now)) === toIsoDate(date)
+  const currentMinutes = now.getHours() * 60 + now.getMinutes()
+
+  return BASE_SLOT_TIMES.map((time) => {
+    const isBlocked = disabledSet.has(time)
+    const isPastTime = isToday && parseTimeToMinutes(time) < currentMinutes
+    const isDisabled = isBlocked || isPastTime
+
+    return {
+      time,
+      hasSlotAvailable: !isDisabled,
+      isBlocked,
+      isPastTime,
+      isDisabled,
+    }
+  })
 }
 
 function validate(formData, selectedDate, selectedTime) {
@@ -97,24 +123,89 @@ function ProjectDetailPage() {
   const [errors, setErrors] = useState({})
   const [formData, setFormData] = useState(() => ({ ...INITIAL_FORM_DATA }))
   const [showDesignDecisions, setShowDesignDecisions] = useState(false)
+  const [highlightTimeSlotSection, setHighlightTimeSlotSection] = useState(false)
+  const [timeSlots, setTimeSlots] = useState([])
+  const [isTimeSlotsLoading, setIsTimeSlotsLoading] = useState(false)
   const designDecisionsRef = useRef(null)
+  const timeSlotSectionRef = useRef(null)
+  const bookingFormSectionRef = useRef(null)
+  const flowHighlightTimerRef = useRef(null)
+  const timeSlotLoadingTimerRef = useRef(null)
 
-  const blockedDaysSet = useMemo(() => new Set(BLOCKED_DAYS), [])
+  const getDateBusinessState = useMemo(
+    () => (date) => {
+      const today = toDateOnly(new Date())
+      const day = toDateOnly(date)
+      const isPast = day < today
+      const isWeekendClosed = day.getDay() === 0 || day.getDay() === 6
+      const slotsForDate = buildSlotsForDate(day)
+      const hasAvailableSlots = slotsForDate.some((slot) => slot.hasSlotAvailable)
+      const isFullyBooked = !hasAvailableSlots
+      const isDisabled = isPast || isFullyBooked || isWeekendClosed
 
-  const isDateUnavailable = (date) => {
-    const day = date.getDay()
-    const isWeekend = day === 0 || day === 6
-    const isBlocked = blockedDaysSet.has(toIsoDate(date))
-    return isWeekend || isBlocked
-  }
+      return {
+        isPast,
+        hasAvailableSlots,
+        isFullyBooked,
+        isWeekendClosed,
+        isDisabled,
+      }
+    },
+    [],
+  )
 
   const handleDateSelect = (date) => {
-    if (isDateUnavailable(date)) {
+    const businessState = getDateBusinessState(date)
+
+    if (businessState.isDisabled) {
       return
     }
 
     setSelectedDate(date)
+    setSelectedTime('')
     setErrors((prev) => ({ ...prev, date: undefined }))
+    clearFieldError('time')
+
+    setIsTimeSlotsLoading(true)
+    if (timeSlotLoadingTimerRef.current) {
+      clearTimeout(timeSlotLoadingTimerRef.current)
+    }
+    timeSlotLoadingTimerRef.current = setTimeout(() => {
+      setTimeSlots(buildSlotsForDate(date))
+      setIsTimeSlotsLoading(false)
+      timeSlotLoadingTimerRef.current = null
+    }, 180)
+
+    if (flowHighlightTimerRef.current) {
+      clearTimeout(flowHighlightTimerRef.current)
+    }
+
+    setHighlightTimeSlotSection(false)
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const slotSectionElement = timeSlotSectionRef.current
+
+        if (!slotSectionElement) {
+          return
+        }
+
+        const prefersReducedMotion =
+          typeof window !== 'undefined' &&
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+        slotSectionElement.scrollIntoView({
+          behavior: prefersReducedMotion ? 'auto' : 'smooth',
+          block: 'nearest',
+        })
+
+        setHighlightTimeSlotSection(true)
+        flowHighlightTimerRef.current = setTimeout(() => {
+          setHighlightTimeSlotSection(false)
+          flowHighlightTimerRef.current = null
+        }, 900)
+      })
+    })
   }
 
   const clearFieldError = (fieldName) => {
@@ -130,6 +221,23 @@ function ProjectDetailPage() {
   const handleTimeSelect = (time) => {
     setSelectedTime(time)
     clearFieldError('time')
+
+    requestAnimationFrame(() => {
+      const bookingSectionElement = bookingFormSectionRef.current
+
+      if (!bookingSectionElement) {
+        return
+      }
+
+      const prefersReducedMotion =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+      bookingSectionElement.scrollIntoView({
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+        block: 'nearest',
+      })
+    })
   }
 
   const shiftCurrentMonth = (offset) => {
@@ -173,6 +281,19 @@ function ProjectDetailPage() {
 
     return () => observer.disconnect()
   }, [])
+
+  useEffect(
+    () => () => {
+      if (flowHighlightTimerRef.current) {
+        clearTimeout(flowHighlightTimerRef.current)
+      }
+
+      if (timeSlotLoadingTimerRef.current) {
+        clearTimeout(timeSlotLoadingTimerRef.current)
+      }
+    },
+    [],
+  )
 
   if (submitted && selectedDate && selectedTime) {
     return (
@@ -277,21 +398,30 @@ function ProjectDetailPage() {
           onNextMonth={() => shiftCurrentMonth(1)}
           selectedDate={selectedDate}
           onSelectDate={handleDateSelect}
-          isDateUnavailable={isDateUnavailable}
+          getDateBusinessState={getDateBusinessState}
         />
 
-        <TimeSlotSelector
-          slots={TIME_SLOTS}
-          selectedTime={selectedTime}
-          onSelectTime={handleTimeSelect}
-        />
+        <div
+          ref={timeSlotSectionRef}
+          className={`time-slot-flow-anchor ${highlightTimeSlotSection ? 'flow-highlight' : ''}`}
+        >
+          <TimeSlotSelector
+            slots={timeSlots}
+            selectedTime={selectedTime}
+            onSelectTime={handleTimeSelect}
+            selectedDate={selectedDate}
+            isLoading={isTimeSlotsLoading}
+          />
+        </div>
 
-        <BookingForm
-          formData={formData}
-          errors={errors}
-          onChange={handleFormChange}
-          onSubmit={handleSubmit}
-        />
+        <div ref={bookingFormSectionRef}>
+          <BookingForm
+            formData={formData}
+            errors={errors}
+            onChange={handleFormChange}
+            onSubmit={handleSubmit}
+          />
+        </div>
       </section>
     </div>
   )

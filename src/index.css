@@ -1011,25 +1011,65 @@ h3 {
   gap: var(--space-3);
 }
 
+.calendar-helper {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-primary-strong) 54%, var(--color-text-muted) 46%);
+  letter-spacing: 0.01em;
+}
+
 .calendar-controls {
-  display: flex;
+  display: grid;
+  grid-template-columns: 2rem 1fr 2rem;
   align-items: center;
   gap: var(--space-3);
 }
 
 .month-label {
-  min-width: 9.5rem;
+  min-width: 0;
   text-transform: capitalize;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text-title);
+  text-align: center;
+  margin: 0;
+  justify-self: center;
+}
+
+.month-label-next {
+  animation: month-slide-next 150ms ease-out both;
+}
+
+.month-label-previous {
+  animation: month-slide-previous 150ms ease-out both;
 }
 
 .icon-btn {
   border: 1px solid var(--border);
-  background: var(--surface-soft);
-  color: var(--text-main);
+  background: color-mix(in srgb, var(--surface-soft) 65%, transparent 35%);
+  color: color-mix(in srgb, var(--color-text-muted) 75%, transparent 25%);
   border-radius: 10px;
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 160ms ease;
+}
+
+.icon-btn:hover {
+  background: color-mix(in srgb, var(--surface-soft) 85%, transparent 15%);
+  color: var(--color-text-body);
+  border-color: color-mix(in srgb, var(--color-border) 70%, transparent 30%);
+}
+
+.icon-btn:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--color-primary-strong) 70%, transparent 30%);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus-ring) 70%, transparent 30%);
 }
 
 .calendar-grid {
@@ -1043,33 +1083,142 @@ h3 {
   font-size: 0.85rem;
 }
 
+.week-days span {
+  display: grid;
+  place-items: center;
+  min-height: 2rem;
+  text-align: center;
+}
+
 .calendar-cell {
   aspect-ratio: 1;
   display: grid;
   place-items: center;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid transparent;
   background: transparent;
+  position: relative;
 }
 
 .calendar-cell.day {
-  border-color: var(--border);
+  border-color: color-mix(in srgb, var(--color-border) 72%, transparent 28%);
   cursor: pointer;
+  color: color-mix(in srgb, var(--color-text-title) 92%, var(--color-text-body) 8%);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 220ms ease,
+    transform 180ms ease;
+}
+
+.calendar-cell.day.business-available {
+  border-color: color-mix(in srgb, var(--color-primary-soft) 34%, var(--color-border) 66%);
+  color: var(--color-text-title);
+}
+
+.calendar-cell.day:active:not(:disabled) {
+  transform: scale(0.97);
+  box-shadow: 0 10px 20px rgba(var(--rgb-primary-strong), 0.22);
+}
+
+.calendar-cell.day.pressing:not(:disabled) {
+  animation: calendar-day-press 220ms ease-out both;
 }
 
 .calendar-cell.day:hover:not(:disabled) {
-  background: var(--surface-soft);
+  background: color-mix(in srgb, var(--color-primary-strong) 5%, transparent 95%);
+  transform: scale(1.02);
+}
+
+.calendar-cell.day.weekend:not(.selected):not(:disabled) {
+  background: color-mix(in srgb, var(--color-warm-accent-soft) 8%, transparent 92%);
+  border-color: color-mix(in srgb, var(--color-warm-accent-soft) 20%, var(--color-border) 80%);
 }
 
 .calendar-cell.day.selected {
   background: var(--accent);
   color: var(--color-surface);
   border-color: var(--accent);
+  box-shadow: 0 8px 18px rgba(var(--rgb-primary-strong), 0.2);
+}
+
+.calendar-cell.day[aria-pressed='true']:not(:disabled) {
+  background: var(--accent);
+  color: var(--color-surface);
+  border-color: var(--accent);
+  box-shadow: 0 8px 18px rgba(var(--rgb-primary-strong), 0.2);
+}
+
+.calendar-cell.day.selected:active,
+.calendar-cell.day.selected.pressing:not(:disabled),
+.calendar-cell.day[aria-pressed='true']:not(:disabled):active,
+.calendar-cell.day[aria-pressed='true'].pressing:not(:disabled) {
+  background: var(--accent);
+  color: var(--color-surface);
+  border-color: var(--accent);
+}
+
+.calendar-cell.day.today:not(.selected) {
+  border-color: color-mix(in srgb, var(--color-primary-strong) 70%, transparent 30%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-primary-strong) 78%, transparent 22%);
+}
+
+.calendar-cell.day:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--color-primary-strong) 80%, transparent 20%);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--color-surface) 72%, transparent 28%),
+    0 0 0 4px color-mix(in srgb, var(--color-focus-ring) 78%, transparent 22%);
 }
 
 .calendar-cell.day:disabled {
-  opacity: 0.35;
+  opacity: 0.42;
+  color: color-mix(in srgb, var(--color-text-muted) 78%, transparent 22%);
+  border-color: color-mix(in srgb, var(--color-border) 64%, transparent 36%);
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.calendar-cell.day:disabled.selected,
+.calendar-cell.day:disabled[aria-pressed='true'] {
+  color: color-mix(in srgb, var(--color-text-muted) 78%, transparent 22%);
+  border-color: color-mix(in srgb, var(--color-border) 64%, transparent 36%);
+  background: transparent;
+  box-shadow: none;
+}
+
+.calendar-cell.day:disabled:hover::after {
+  content: 'Keine Termine verfügbar';
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.45rem);
+  transform: translateX(-50%);
+  padding: 0.28rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent 30%);
+  background: color-mix(in srgb, var(--color-surface) 92%, var(--color-surface-soft) 8%);
+  color: var(--color-text-body);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  white-space: nowrap;
+  box-shadow: 0 8px 18px rgba(var(--rgb-text-strong), 0.08);
+  z-index: 3;
+}
+
+.calendar-cell.day:disabled:hover::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.18rem);
+  width: 0.45rem;
+  height: 0.45rem;
+  transform: translateX(-50%) rotate(45deg);
+  border-right: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent 30%);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent 30%);
+  background: color-mix(in srgb, var(--color-surface) 92%, var(--color-surface-soft) 8%);
+  z-index: 2;
 }
 
 .time-slot-grid {
@@ -1078,24 +1227,90 @@ h3 {
   gap: var(--space-3);
 }
 
+.time-slot-flow-anchor {
+  border-radius: var(--radius-md);
+}
+
+.time-slot-flow-anchor.flow-highlight .booking-section {
+  animation: slot-section-highlight 560ms ease-out both;
+}
+
+.time-slot-section {
+  transition: opacity 180ms ease;
+}
+
+.time-slot-section.is-loading {
+  opacity: 0.6;
+}
+
+.time-slot-date-label {
+  font-size: 0.86rem;
+  color: var(--color-text-body);
+}
+
+.time-slot-empty {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  padding: var(--space-3) 0;
+}
+
 .time-slot {
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 74%, transparent 26%);
+  border-radius: 12px;
   background: transparent;
   min-height: 2.6rem;
   font-weight: 600;
+  color: var(--color-text-title);
   cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 220ms ease,
+    transform 180ms ease;
+}
+
+.time-slot.is-available:hover:not(:disabled):not(.selected) {
+  background: color-mix(in srgb, var(--color-primary-strong) 5%, transparent 95%);
 }
 
 .time-slot.selected {
   background: var(--accent);
   color: var(--color-surface);
   border-color: var(--accent);
+  box-shadow: 0 8px 18px rgba(var(--rgb-primary-strong), 0.2);
+}
+
+.time-slot.selected:active,
+.time-slot.selected.pressing {
+  background: var(--accent);
+  color: var(--color-surface);
+  border-color: var(--accent);
+}
+
+.time-slot:active:not(:disabled) {
+  transform: scale(0.97);
+  box-shadow: 0 10px 20px rgba(var(--rgb-primary-strong), 0.22);
+}
+
+.time-slot.pressing:not(:disabled) {
+  animation: calendar-day-press 220ms ease-out both;
 }
 
 .time-slot:disabled {
-  opacity: 0.4;
+  opacity: 0.42;
+  color: color-mix(in srgb, var(--color-text-muted) 78%, transparent 22%);
+  border-color: color-mix(in srgb, var(--color-border) 64%, transparent 36%);
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.time-slot:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--color-primary-strong) 80%, transparent 20%);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--color-surface) 72%, transparent 28%),
+    0 0 0 4px color-mix(in srgb, var(--color-focus-ring) 78%, transparent 22%);
 }
 
 .form-grid {
@@ -1333,6 +1548,50 @@ h3 {
   }
 }
 
+@keyframes month-slide-next {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes month-slide-previous {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slot-section-highlight {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary-strong) 14%, transparent 86%);
+    background: color-mix(in srgb, var(--color-primary-surface-hover) 30%, transparent 70%);
+  }
+  100% {
+    box-shadow: 0 0 0 10px transparent;
+    background: transparent;
+  }
+}
+
+@keyframes calendar-day-press {
+  0% {
+    transform: scale(0.97);
+    box-shadow: 0 12px 22px rgba(var(--rgb-primary-strong), 0.24);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-orb-green,
   .hero-orb-lavender,
@@ -1343,7 +1602,13 @@ h3 {
   .decision-why,
   .decision-impact,
   .decision-context,
-  .decision-number {
+  .decision-number,
+  .month-label-next,
+  .month-label-previous,
+  .time-slot-flow-anchor.flow-highlight .booking-section,
+  .calendar-cell.day.pressing:not(:disabled),
+  .time-slot.pressing:not(:disabled),
+  .time-slot-section {
     animation: none;
     transition: none;
   }

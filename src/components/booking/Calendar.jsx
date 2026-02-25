@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
+
 const WEEK_DAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
 
 function buildCalendarCells(year, month) {
@@ -24,8 +26,12 @@ function Calendar({
   onNextMonth,
   selectedDate,
   onSelectDate,
-  isDateUnavailable,
+  getDateBusinessState,
 }) {
+  const [monthTransitionDirection, setMonthTransitionDirection] = useState('next')
+  const [pressedDayKey, setPressedDayKey] = useState('')
+  const pressedDayTimerRef = useRef(null)
+
   const year = currentMonth.getFullYear()
   const month = currentMonth.getMonth()
   const monthLabel = currentMonth.toLocaleDateString('de-DE', {
@@ -35,25 +41,72 @@ function Calendar({
   const cells = buildCalendarCells(year, month)
 
   const selectedDayKey = selectedDate ? selectedDate.toDateString() : ''
+  const todayKey = new Date().toDateString()
+
+  const handlePreviousMonth = () => {
+    setMonthTransitionDirection('previous')
+    onPreviousMonth()
+  }
+
+  const handleNextMonth = () => {
+    setMonthTransitionDirection('next')
+    onNextMonth()
+  }
+
+  const handleDayClick = (date) => {
+    const businessState = getDateBusinessState(date)
+
+    if (businessState.isDisabled) {
+      return
+    }
+
+    const dateKey = date.toDateString()
+    onSelectDate(date)
+    setPressedDayKey(dateKey)
+
+    if (pressedDayTimerRef.current) {
+      clearTimeout(pressedDayTimerRef.current)
+    }
+
+    pressedDayTimerRef.current = setTimeout(() => {
+      setPressedDayKey('')
+      pressedDayTimerRef.current = null
+    }, 220)
+  }
+
+  useEffect(
+    () => () => {
+      if (pressedDayTimerRef.current) {
+        clearTimeout(pressedDayTimerRef.current)
+      }
+    },
+    [],
+  )
 
   return (
     <section className="booking-section">
       <div className="calendar-header">
+        <p className="calendar-helper">Wählen Sie ein passendes Datum</p>
         <h3>Datum auswaehlen</h3>
         <div className="calendar-controls">
           <button
             type="button"
             className="icon-btn"
-            onClick={onPreviousMonth}
+            onClick={handlePreviousMonth}
             aria-label="Vorheriger Monat"
           >
             ‹
           </button>
-          <p className="month-label">{monthLabel}</p>
+          <p
+            key={`${year}-${month}`}
+            className={`month-label month-label-${monthTransitionDirection}`}
+          >
+            {monthLabel}
+          </p>
           <button
             type="button"
             className="icon-btn"
-            onClick={onNextMonth}
+            onClick={handleNextMonth}
             aria-label="Naechster Monat"
           >
             ›
@@ -73,24 +126,52 @@ function Calendar({
             return <span key={`empty-${index}`} className="calendar-cell empty" />
           }
 
-          const unavailable = isDateUnavailable(date)
-          const isSelected = selectedDayKey === date.toDateString()
+          const businessState = getDateBusinessState(date)
+          const unavailable = businessState.isDisabled
+          const isSelected = !unavailable && selectedDayKey === date.toDateString()
+          const isToday = todayKey === date.toDateString()
+          const isWeekend = date.getDay() === 0 || date.getDay() === 6
+          const isPressed = pressedDayKey === date.toDateString()
+          const dayAvailabilityLabel = unavailable
+            ? 'keine Termine verfuegbar'
+            : 'verfuegbar'
+          const businessClasses = [
+            businessState.isPast ? 'business-past' : '',
+            businessState.isFullyBooked ? 'business-fully-booked' : '',
+            businessState.isWeekendClosed ? 'business-weekend-closed' : '',
+            businessState.hasAvailableSlots ? 'business-available' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')
+          const dayClasses = [
+            'calendar-cell',
+            'day',
+            businessClasses,
+            isSelected ? 'selected' : '',
+            isToday ? 'today' : '',
+            isWeekend ? 'weekend' : '',
+            isPressed ? 'pressing' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')
 
           return (
             <button
               key={date.getTime()}
               type="button"
-              className={`calendar-cell day ${isSelected ? 'selected' : ''}`}
+              className={dayClasses}
               disabled={unavailable}
               aria-disabled={unavailable}
-              onClick={() => onSelectDate(date)}
-              aria-label={date.toLocaleDateString('de-DE', {
+              onClick={() => handleDayClick(date)}
+              aria-label={`${date.toLocaleDateString('de-DE', {
                 weekday: 'long',
-                day: '2-digit',
-                month: '2-digit',
+                day: 'numeric',
+                month: 'long',
                 year: 'numeric',
-              })}
+              })}, ${dayAvailabilityLabel}`}
               aria-pressed={isSelected}
+              aria-current={isToday ? 'date' : undefined}
+              title={unavailable ? 'Keine Termine verfuegbar' : undefined}
             >
               {date.getDate()}
             </button>

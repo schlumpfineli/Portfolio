@@ -73,7 +73,7 @@
   background: var(--color-bg);
   padding-top: clamp(1rem, 3vh, 2rem);
   padding-bottom: clamp(1.5rem, 4vh, 2.5rem);
-  padding-inline: max(1rem, calc((100vw - 1080px) / 2 + 1rem));
+  padding-inline: var(--layout-page-inline);
 }
 
 .hero-background {
@@ -597,7 +597,7 @@ h3 {
   );
   border-top: 1px solid color-mix(in srgb, var(--color-cta-final-accent) 80%, transparent 20%);
   border-bottom: 1px solid color-mix(in srgb, var(--color-cta-final-accent) 80%, transparent 20%);
-  padding: clamp(4.4rem, 8vw, 6.8rem) max(1rem, calc((100vw - 1080px) / 2 + 1rem));
+  padding: clamp(4.4rem, 8vw, 6.8rem) var(--layout-page-inline);
   margin-top: calc(var(--space-12) + var(--space-6));
 }
 
@@ -679,6 +679,308 @@ h3 {
 
 .project-page {
   display: grid;
+}
+
+.project-problem-editorial {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.project-problem-editorial h2 {
+  color: var(--color-text-title);
+  font-size: 1.15rem;
+}
+
+.project-problem-intro {
+  color: var(--color-text-body);
+  max-width: 58ch;
+}
+
+.project-problem-columns {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.project-problem-block {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.project-problem-label {
+  margin: 0;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary-strong);
+  font-weight: 600;
+}
+
+.project-problem-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: var(--space-2);
+  color: var(--color-text-body);
+}
+
+.project-problem-note {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  margin-top: var(--space-2);
+}
+
+.design-decisions {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.decision-list {
+  display: grid;
+  gap: var(--space-12);
+}
+
+.decision-block {
+  position: relative;
+  display: grid;
+  gap: var(--space-5);
+}
+
+.decision-block::before {
+  content: '';
+  position: absolute;
+  inset: -0.75rem -1rem;
+  background: radial-gradient(
+    circle at 24% 42%,
+    color-mix(in srgb, var(--color-primary) 14%, transparent 86%) 0%,
+    transparent 72%
+  );
+  opacity: 0;
+  transition: opacity 320ms ease-out;
+  pointer-events: none;
+}
+
+.decision-block::after {
+  content: '';
+  position: absolute;
+  width: 9.5rem;
+  height: 9.5rem;
+  top: 0.2rem;
+  right: -1.4rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-lavender) 48%, transparent 52%);
+  filter: blur(40px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.decision-block:is(:hover, :focus-within)::before {
+  opacity: 0.07;
+}
+
+.design-decisions.is-visible .decision-block:nth-child(2)::before {
+  opacity: 0.035;
+}
+
+.design-decisions.is-visible .decision-block:nth-child(3)::after {
+  opacity: 0.06;
+}
+
+.decision-heading {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.decision-number {
+  position: absolute;
+  top: -1.2rem;
+  left: -1rem;
+  font-family: Sora, Inter, system-ui, sans-serif;
+  font-size: clamp(7.5rem, 18vw, 10rem);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--color-primary-strong) 80%, transparent 20%);
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 520ms ease-out,
+    transform 520ms ease-out;
+  transition-delay: var(--block-delay, 0ms);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.design-decisions.is-visible .decision-number {
+  opacity: 0.055;
+  transform: translateY(0);
+}
+
+.decision-title {
+  position: relative;
+  z-index: 1;
+  color: var(--color-text-strong);
+  font-size: 1.22rem;
+  line-height: 1.35;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin-top: var(--space-5);
+  max-width: 30ch;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 520ms ease-out,
+    transform 520ms ease-out;
+  transition-delay: calc(var(--block-delay, 0ms) + 80ms);
+}
+
+.decision-content {
+  display: grid;
+  gap: var(--space-4);
+  max-width: min(680px, 100%);
+  color: color-mix(in srgb, var(--color-text-body) 88%, var(--color-text-muted) 12%);
+}
+
+.decision-why {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 520ms ease-out,
+    transform 520ms ease-out;
+  transition-delay: calc(var(--block-delay, 0ms) + 120ms);
+}
+
+.decision-impact {
+  position: relative;
+  margin-top: var(--space-2);
+  padding-left: var(--space-4);
+  border-left: 1px solid color-mix(in srgb, var(--color-primary-strong) 26%, transparent 74%);
+  color: color-mix(in srgb, var(--color-primary-strong) 62%, var(--color-text-title) 38%);
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 520ms ease-out,
+    transform 520ms ease-out;
+  transition-delay: calc(var(--block-delay, 0ms) + 160ms);
+}
+
+.decision-block:nth-child(2) .decision-impact {
+  border-left-color: transparent;
+}
+
+.decision-block:nth-child(2) .decision-impact::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  width: 1px;
+  height: 72%;
+  background: color-mix(in srgb, var(--color-primary-strong) 30%, transparent 70%);
+}
+
+.decision-impact strong {
+  color: var(--color-primary-strong);
+  font-weight: 500;
+}
+
+.decision-context {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--color-text-muted) 62%, transparent 38%);
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 520ms ease-out,
+    transform 520ms ease-out;
+  transition-delay: calc(var(--block-delay, 0ms) + 200ms);
+}
+
+.design-decisions.is-visible .decision-title,
+.design-decisions.is-visible .decision-why,
+.design-decisions.is-visible .decision-impact,
+.design-decisions.is-visible .decision-context {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.case-study-page {
+  display: grid;
+}
+
+.case-hero .lead {
+  max-width: 72ch;
+}
+
+.case-meta {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-surface) 72%, var(--color-surface-soft) 28%);
+  border: 1px solid var(--color-border-soft);
+}
+
+.case-meta strong {
+  color: var(--color-text-title);
+}
+
+.case-section {
+  gap: var(--space-4);
+}
+
+.case-copy {
+  display: grid;
+  gap: var(--space-2);
+  color: var(--color-text-body);
+}
+
+.case-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: var(--space-2);
+  color: var(--color-text-body);
+}
+
+.case-placeholder {
+  width: 100%;
+  min-height: 14rem;
+  border-radius: var(--radius-lg);
+  border: 1px dashed color-mix(in srgb, var(--color-text-muted) 25%, transparent 75%);
+  background: color-mix(in srgb, var(--color-surface-soft) 76%, var(--color-surface-muted) 24%);
+  display: grid;
+  place-items: center;
+}
+
+.case-placeholder span {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.case-placeholder.is-wide {
+  min-height: 18rem;
+}
+
+.case-compare-copy {
+  display: grid;
+  gap: var(--space-2);
+  color: var(--color-text-body);
+}
+
+.case-compare-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.case-note {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+}
+
+.case-reflection {
+  margin-bottom: var(--space-8);
 }
 
 .split {
@@ -906,11 +1208,6 @@ h3 {
     align-items: center;
   }
 
-  .hybrid-card.is-primary-case {
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
-  }
-
   .hybrid-card.is-reversed .project-text {
     order: 2;
   }
@@ -928,6 +1225,21 @@ h3 {
   }
 
   .split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-problem-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
+  }
+
+  .decision-block {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .case-compare-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1025,7 +1337,24 @@ h3 {
   .hero-orb-green,
   .hero-orb-lavender,
   .hero-orb-accent,
-  .hero-scroll-line {
+  .hero-scroll-line,
+  .decision-block,
+  .decision-title,
+  .decision-why,
+  .decision-impact,
+  .decision-context,
+  .decision-number {
     animation: none;
+    transition: none;
+  }
+
+  .decision-block,
+  .decision-title,
+  .decision-why,
+  .decision-impact,
+  .decision-context,
+  .decision-number {
+    opacity: 1;
+    transform: none;
   }
 }

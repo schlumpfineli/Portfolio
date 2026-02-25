@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Calendar from '../components/booking/Calendar'
 import TimeSlotSelector from '../components/booking/TimeSlotSelector'
 import BookingForm from '../components/booking/BookingForm'
@@ -29,6 +29,26 @@ const INITIAL_FORM_DATA = {
   animalType: '',
   comment: '',
 }
+const DESIGN_DECISIONS = [
+  {
+    number: '01',
+    title: 'Klare Zustandslogik',
+    why: 'Available, selected, disabled und error sind visuell eindeutig unterscheidbar.',
+    impact: 'Sicherheit bei der Terminwahl und reduzierte Fehlinterpretation.',
+  },
+  {
+    number: '02',
+    title: 'Bewusst reduzierte Farbwelt',
+    why: 'Primaergruen markiert aktive Zustaende, neutrale Grautoene halten Flaechen ruhig.',
+    impact: 'Klarere Hierarchie und weniger visuelle Ueberlastung.',
+  },
+  {
+    number: '03',
+    title: 'Eine Entscheidung pro Schritt',
+    why: 'Datum -> Uhrzeit -> Kontaktdaten fuehrt durch genau eine Entscheidung pro Schritt.',
+    impact: 'Geringere kognitive Belastung und bessere Abschlusswahrscheinlichkeit.',
+  },
+]
 
 function toIsoDate(date) {
   const year = date.getFullYear()
@@ -76,6 +96,8 @@ function ProjectDetailPage() {
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState({})
   const [formData, setFormData] = useState(() => ({ ...INITIAL_FORM_DATA }))
+  const [showDesignDecisions, setShowDesignDecisions] = useState(false)
+  const designDecisionsRef = useRef(null)
 
   const blockedDaysSet = useMemo(() => new Set(BLOCKED_DAYS), [])
 
@@ -126,6 +148,32 @@ function ProjectDetailPage() {
     setSubmitted(true)
   }
 
+  useEffect(() => {
+    const sectionElement = designDecisionsRef.current
+
+    if (!sectionElement) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          return
+        }
+
+        setShowDesignDecisions(true)
+        observer.disconnect()
+      },
+      {
+        threshold: 0.2,
+      },
+    )
+
+    observer.observe(sectionElement)
+
+    return () => observer.disconnect()
+  }, [])
+
   if (submitted && selectedDate && selectedTime) {
     return (
       <section className="section">
@@ -150,22 +198,70 @@ function ProjectDetailPage() {
       </section>
 
       <section className="section split">
-        <article className="card">
-          <h2>Ziel & Problem</h2>
-          <p>
-            Viele Terminprozesse sind auf mobilen Geraeten zu kompliziert.
-            Unsicherheit entsteht besonders bei gesperrten Zeiten und unklaren
-            Formularanforderungen.
+        <article className="project-problem-editorial">
+          <p className="project-problem-intro">
+            Mobile Terminprozesse wirken oft komplexer als noetig - besonders in
+            sensiblen Situationen.
+          </p>
+
+          <div className="project-problem-columns">
+            <section className="project-problem-block">
+              <p className="project-problem-label">Analyse</p>
+              <h2>Problem</h2>
+              <ul className="project-problem-list">
+                <li>Unklare Verfuegbarkeiten erzeugen Unsicherheit.</li>
+                <li>Fehlende Orientierung erschwert den Einstieg.</li>
+                <li>Formulare wirken streng statt unterstuetzend.</li>
+                <li>Fehlermeldungen sind unklar oder zu spaet sichtbar.</li>
+              </ul>
+            </section>
+
+            <section className="project-problem-block">
+              <p className="project-problem-label">Strategie</p>
+              <h2>Ziel</h2>
+              <ul className="project-problem-list">
+                <li>Klare, schrittweise Nutzerfuehrung.</li>
+                <li>Eindeutige UI-States: available, selected, disabled, error.</li>
+                <li>Ruhige visuelle Sprache mit viel Weissraum.</li>
+                <li>Vertrauen durch sofortiges Feedback.</li>
+              </ul>
+            </section>
+          </div>
+
+          <p className="project-problem-note">
+            Demo ohne Backend - lokal im State simuliert.
           </p>
         </article>
-        <article className="card">
-          <h2>Designentscheidungen</h2>
-          <p>
-            Fokus auf mobile Lesbarkeit, klare Zustandsdarstellung (selected,
-            disabled, error) und eine reduzierte visuelle Sprache mit viel
-            Weissraum.
-          </p>
-        </article>
+      </section>
+
+      <section
+        ref={designDecisionsRef}
+        className={`section design-decisions ${showDesignDecisions ? 'is-visible' : ''}`}
+      >
+        <h2>Designentscheidungen</h2>
+        <div className="decision-list">
+          {DESIGN_DECISIONS.map((decision, index) => (
+            <article
+              key={decision.number}
+              className="decision-block"
+              style={{ '--block-delay': `${index * 120}ms` }}
+            >
+              <div className="decision-heading">
+                <span className="decision-number" aria-hidden="true">
+                  {decision.number}
+                </span>
+                <h3 className="decision-title">{decision.title}</h3>
+              </div>
+              <div className="decision-content">
+                <p className="decision-why">{decision.why}</p>
+                <p className="decision-impact">
+                  <strong>Wirkung:</strong> {decision.impact}
+                </p>
+                <p className="decision-context">Kontext: Mobile-first Booking Flow</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="section demo-shell">

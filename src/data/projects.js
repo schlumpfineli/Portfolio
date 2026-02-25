@@ -6,7 +6,7 @@ export const projects = [
     description:
       'Mobile-first Praxiswebsite mit strukturierter Terminfuehrung und reduzierter kognitiver Belastung.',
     tags: ['UX', 'State Management', 'Responsive'],
-    href: '/projekte/tierarzt-terminbuchung',
+    href: '/projekte/redesign-haustierarztpraxis-baar',
     previewTone: 'mint',
   },
   {

@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom'
 function ProjectCard({ project, index }) {
   const reversed = index % 2 === 1
   const primaryCase = index === 0
+  const cardClasses = [
+    'project-card',
+    'hybrid-card',
+    reversed ? 'is-reversed' : '',
+    primaryCase ? 'is-primary-case' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   const cta = project.href ? (
     <Link to={project.href} className="project-cta">
@@ -15,9 +23,7 @@ function ProjectCard({ project, index }) {
   )
 
   return (
-    <article
-      className={`project-card hybrid-card ${reversed ? 'is-reversed' : ''} ${primaryCase ? 'is-primary-case' : ''}`}
-    >
+    <article className={cardClasses}>
       <div className="project-text">
         <p className="project-sector">{project.sector}</p>
         <h3>{project.title}</h3>

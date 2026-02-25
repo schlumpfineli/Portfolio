@@ -1,5 +1,23 @@
 const WEEK_DAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
 
+function buildCalendarCells(year, month) {
+  const firstDay = new Date(year, month, 1)
+  const lastDay = new Date(year, month + 1, 0)
+  const daysInMonth = lastDay.getDate()
+  const offset = (firstDay.getDay() + 6) % 7
+  const cells = []
+
+  for (let i = 0; i < offset; i += 1) {
+    cells.push(null)
+  }
+
+  for (let day = 1; day <= daysInMonth; day += 1) {
+    cells.push(new Date(year, month, day))
+  }
+
+  return cells
+}
+
 function Calendar({
   currentMonth,
   onPreviousMonth,
@@ -14,21 +32,7 @@ function Calendar({
     month: 'long',
     year: 'numeric',
   })
-
-  const firstDay = new Date(year, month, 1)
-  const lastDay = new Date(year, month + 1, 0)
-  const daysInMonth = lastDay.getDate()
-  const offset = (firstDay.getDay() + 6) % 7
-
-  const cells = []
-
-  for (let i = 0; i < offset; i += 1) {
-    cells.push(null)
-  }
-
-  for (let day = 1; day <= daysInMonth; day += 1) {
-    cells.push(new Date(year, month, day))
-  }
+  const cells = buildCalendarCells(year, month)
 
   const selectedDayKey = selectedDate ? selectedDate.toDateString() : ''
 
@@ -74,11 +78,18 @@ function Calendar({
 
           return (
             <button
-              key={date.toISOString()}
+              key={date.getTime()}
               type="button"
               className={`calendar-cell day ${isSelected ? 'selected' : ''}`}
               disabled={unavailable}
+              aria-disabled={unavailable}
               onClick={() => onSelectDate(date)}
+              aria-label={date.toLocaleDateString('de-DE', {
+                weekday: 'long',
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+              })}
               aria-pressed={isSelected}
             >
               {date.getDate()}

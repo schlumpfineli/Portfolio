@@ -1,20 +1,24 @@
 function TimeSlotSelector({ slots, selectedTime, onSelectTime }) {
+  const getSlotClassName = (isSelected) => `time-slot ${isSelected ? 'selected' : ''}`
+
   return (
     <section className="booking-section">
       <h3>Uhrzeit auswaehlen</h3>
       <div className="time-slot-grid">
-        {slots.map((slot) => {
-          const isSelected = selectedTime === slot.time
+        {slots.map(({ time, disabled }) => {
+          const isSelected = selectedTime === time
+
           return (
             <button
-              key={slot.time}
+              key={time}
               type="button"
-              className={`time-slot ${isSelected ? 'selected' : ''}`}
-              disabled={slot.disabled}
-              onClick={() => onSelectTime(slot.time)}
+              className={getSlotClassName(isSelected)}
+              disabled={disabled}
+              aria-disabled={disabled}
+              onClick={() => onSelectTime(time)}
               aria-pressed={isSelected}
             >
-              {slot.time}
+              {time}
             </button>
           )
         })}

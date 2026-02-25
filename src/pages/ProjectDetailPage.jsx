@@ -4,7 +4,7 @@ import TimeSlotSelector from '../components/booking/TimeSlotSelector'
 import BookingForm from '../components/booking/BookingForm'
 import Confirmation from '../components/booking/Confirmation'
 
-const blockedDays = [
+const BLOCKED_DAYS = [
   '2026-03-06',
   '2026-03-12',
   '2026-03-19',
@@ -12,7 +12,7 @@ const blockedDays = [
   '2026-04-09',
 ]
 
-const timeSlots = [
+const TIME_SLOTS = [
   { time: '09:00', disabled: false },
   { time: '10:00', disabled: false },
   { time: '11:00', disabled: true },
@@ -21,8 +21,20 @@ const timeSlots = [
   { time: '16:30', disabled: true },
 ]
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const INITIAL_FORM_DATA = {
+  name: '',
+  email: '',
+  phone: '',
+  animalType: '',
+  comment: '',
+}
+
 function toIsoDate(date) {
-  return date.toISOString().split('T')[0]
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
 }
 
 function validate(formData, selectedDate, selectedTime) {
@@ -34,11 +46,8 @@ function validate(formData, selectedDate, selectedTime) {
 
   if (!formData.email.trim()) {
     nextErrors.email = 'Bitte gib deine E-Mail-Adresse an.'
-  } else {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailPattern.test(formData.email)) {
-      nextErrors.email = 'Bitte gib eine gueltige E-Mail-Adresse ein.'
-    }
+  } else if (!EMAIL_PATTERN.test(formData.email)) {
+    nextErrors.email = 'Bitte gib eine gueltige E-Mail-Adresse ein.'
   }
 
   if (!formData.phone.trim()) {
@@ -66,15 +75,9 @@ function ProjectDetailPage() {
   const [selectedTime, setSelectedTime] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState({})
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    animalType: '',
-    comment: '',
-  })
+  const [formData, setFormData] = useState(() => ({ ...INITIAL_FORM_DATA }))
 
-  const blockedDaysSet = useMemo(() => new Set(blockedDays), [])
+  const blockedDaysSet = useMemo(() => new Set(BLOCKED_DAYS), [])
 
   const isDateUnavailable = (date) => {
     const day = date.getDay()
@@ -87,19 +90,28 @@ function ProjectDetailPage() {
     if (isDateUnavailable(date)) {
       return
     }
+
     setSelectedDate(date)
     setErrors((prev) => ({ ...prev, date: undefined }))
+  }
+
+  const clearFieldError = (fieldName) => {
+    setErrors((prev) => ({ ...prev, [fieldName]: undefined }))
   }
 
   const handleFormChange = (event) => {
     const { name, value } = event.target
     setFormData((prev) => ({ ...prev, [name]: value }))
-    setErrors((prev) => ({ ...prev, [name]: undefined }))
+    clearFieldError(name)
   }
 
   const handleTimeSelect = (time) => {
     setSelectedTime(time)
-    setErrors((prev) => ({ ...prev, time: undefined }))
+    clearFieldError('time')
+  }
+
+  const shiftCurrentMonth = (offset) => {
+    setCurrentMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() + offset, 1))
   }
 
   const handleSubmit = (event) => {
@@ -165,23 +177,15 @@ function ProjectDetailPage() {
 
         <Calendar
           currentMonth={currentMonth}
-          onPreviousMonth={() =>
-            setCurrentMonth(
-              (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1),
-            )
-          }
-          onNextMonth={() =>
-            setCurrentMonth(
-              (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1),
-            )
-          }
+          onPreviousMonth={() => shiftCurrentMonth(-1)}
+          onNextMonth={() => shiftCurrentMonth(1)}
           selectedDate={selectedDate}
           onSelectDate={handleDateSelect}
           isDateUnavailable={isDateUnavailable}
         />
 
         <TimeSlotSelector
-          slots={timeSlots}
+          slots={TIME_SLOTS}
           selectedTime={selectedTime}
           onSelectTime={handleTimeSelect}
         />

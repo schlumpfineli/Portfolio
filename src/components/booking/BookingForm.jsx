@@ -1,6 +1,9 @@
 import Button from '../ui/Button'
 import Input from '../ui/Input'
 
+const ANIMAL_OPTIONS = ['Hund', 'Katze', 'Anderes']
+const FORM_LEVEL_ERROR_FIELDS = ['date', 'time']
+
 function BookingForm({ formData, errors, onChange, onSubmit }) {
   return (
     <section className="booking-section">
@@ -42,36 +45,18 @@ function BookingForm({ formData, errors, onChange, onSubmit }) {
 
         <fieldset className={`field radio-group ${errors.animalType ? 'field-error' : ''}`}>
           <legend className="label">Tierart *</legend>
-          <label>
-            <input
-              type="radio"
-              name="animalType"
-              value="Hund"
-              checked={formData.animalType === 'Hund'}
-              onChange={onChange}
-            />
-            Hund
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="animalType"
-              value="Katze"
-              checked={formData.animalType === 'Katze'}
-              onChange={onChange}
-            />
-            Katze
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="animalType"
-              value="Anderes"
-              checked={formData.animalType === 'Anderes'}
-              onChange={onChange}
-            />
-            Anderes
-          </label>
+          {ANIMAL_OPTIONS.map((option) => (
+            <label key={option}>
+              <input
+                type="radio"
+                name="animalType"
+                value={option}
+                checked={formData.animalType === option}
+                onChange={onChange}
+              />
+              {option}
+            </label>
+          ))}
           {errors.animalType && <p className="error-text">{errors.animalType}</p>}
         </fieldset>
 
@@ -89,8 +74,13 @@ function BookingForm({ formData, errors, onChange, onSubmit }) {
           />
         </div>
 
-        {errors.date && <p className="error-text">{errors.date}</p>}
-        {errors.time && <p className="error-text">{errors.time}</p>}
+        {FORM_LEVEL_ERROR_FIELDS.map((field) =>
+          errors[field] ? (
+            <p key={field} className="error-text" role="alert">
+              {errors[field]}
+            </p>
+          ) : null,
+        )}
 
         <Button type="submit" className="submit-btn">
           Termin unverbindlich buchen

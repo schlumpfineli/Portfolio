@@ -15,11 +15,14 @@ function ExpertiseSection() {
   ]
 
   return (
-    <section className="section">
+    <section className="section expertise-section">
       <h2>Expertise</h2>
       <div className="expertise-grid">
-        {items.map((item) => (
-          <article key={item.title} className="expertise-item">
+        {items.map((item, index) => (
+          <article
+            key={item.title}
+            className={`expertise-item expertise-item-${index + 1}`}
+          >
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>

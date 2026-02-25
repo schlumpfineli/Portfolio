@@ -22,6 +22,13 @@ function HomePage() {
         </div>
       </section>
 
+      <section className="section editorial-break">
+        <p>
+          Gute Care-Produkte reduzieren Unsicherheit. Sie fuehren Menschen ruhig
+          durch komplexe Momente - mit Klarheit in jeder Interaktion.
+        </p>
+      </section>
+
       <ExpertiseSection />
       <CallToAction />
     </>

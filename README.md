@@ -1,16 +1,25 @@
-# React + Vite
+# Portfolio Selina Schindler
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interaktives Portfolio auf Basis von React und Vite.
 
-Currently, two official plugins are available:
+## Entwicklung
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+## Build
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run build
+npm run preview
+```
 
-## Expanding the ESLint configuration
+## Letzte Refactorings
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Buchungsflow strukturiert: Hilfsfunktionen und Konstanten klarer getrennt.
+- Duplikate reduziert (u. a. Tierart-Optionen und Formular-Fehlerausgabe).
+- Accessibility verbessert (`aria-label`, `aria-disabled`, `role="alert"`).
+- Datumsvergleich robust gegen Zeitzonen-Effekte (lokales Datum statt UTC-String).
+- Keine neuen Dependencies, keine Business-Logik- oder Validierungsänderungen.

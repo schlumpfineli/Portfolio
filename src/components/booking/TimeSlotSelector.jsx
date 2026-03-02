@@ -56,15 +56,15 @@ function TimeSlotSelector({ slots, selectedTime, onSelectTime, selectedDate, isL
 
   return (
     <section className={`booking-section time-slot-section ${isLoading ? 'is-loading' : ''}`}>
-      <h3>Uhrzeit auswaehlen</h3>
+      <h3>Uhrzeit auswählen</h3>
       {selectedDate && <p className="time-slot-date-label">Termine am {selectedDateLabel}</p>}
 
       {!selectedDate && (
-        <p className="time-slot-empty">Bitte waehle zuerst ein Datum aus.</p>
+        <p className="time-slot-empty">Bitte wähle zuerst ein Datum aus.</p>
       )}
 
       {selectedDate && !isLoading && !hasSlotAvailable && (
-        <p className="time-slot-empty">Fuer dieses Datum sind keine Termine verfuegbar.</p>
+        <p className="time-slot-empty">Für dieses Datum sind keine Termine verfügbar.</p>
       )}
 
       <div className="time-slot-grid">
@@ -73,8 +73,8 @@ function TimeSlotSelector({ slots, selectedTime, onSelectTime, selectedDate, isL
           const availabilityLabel = slot.isDisabled
             ? slot.isPastTime
               ? 'bereits vergangen'
-              : 'keine Termine verfuegbar'
-            : 'verfuegbar'
+              : 'keine Termine verfügbar'
+            : 'verfügbar'
 
           return (
             <button

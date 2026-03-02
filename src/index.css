@@ -395,9 +395,20 @@ h3 {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.project-card-link {
+  display: grid;
+  color: inherit;
+  text-decoration: none;
+}
+
 .project-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-card-hover);
+}
+
+.project-card-link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-focus-ring) 75%, transparent 25%);
+  outline-offset: 3px;
 }
 
 .hybrid-card {
@@ -681,6 +692,741 @@ h3 {
   display: grid;
 }
 
+.project-page-hausarzt {
+  --color-bg: var(--hausarzt-color-bg);
+  --color-bg-gradient-top: var(--hausarzt-color-bg-gradient-top);
+  --color-surface: var(--hausarzt-color-surface);
+  --color-surface-soft: var(--hausarzt-color-surface-soft);
+  --color-surface-muted: var(--hausarzt-color-surface-muted);
+  --color-primary: var(--hausarzt-color-primary);
+  --color-primary-strong: var(--hausarzt-color-primary-strong);
+  --color-primary-hover: var(--hausarzt-color-primary-hover);
+  --color-primary-soft: var(--hausarzt-color-primary-soft);
+  --color-primary-surface-hover: var(--hausarzt-color-primary-surface-hover);
+  --color-focus-ring: var(--hausarzt-color-focus-ring);
+  --color-text-strong: var(--hausarzt-color-text-strong);
+  --color-text-title: var(--hausarzt-color-text-title);
+  --color-text-body: var(--hausarzt-color-text-body);
+  --color-text-muted: var(--hausarzt-color-text-muted);
+  --color-border: var(--hausarzt-color-border);
+  --color-border-soft: var(--hausarzt-color-border-soft);
+  --color-warm-accent: var(--hausarzt-color-warm-accent);
+  --color-warm-accent-soft: var(--hausarzt-color-warm-accent-soft);
+  --color-lavender: var(--hausarzt-color-lavender);
+  --accent: var(--hausarzt-color-primary);
+  --accent-dark: var(--hausarzt-color-primary-strong);
+  --text-main: var(--hausarzt-color-text-title);
+  --text-muted: var(--hausarzt-color-text-body);
+  --rgb-primary-strong: var(--hausarzt-rgb-primary-strong);
+  --rgb-green-orb: var(--hausarzt-rgb-green-orb);
+  --rgb-lavender-orb: var(--hausarzt-rgb-lavender-orb);
+  --rgb-warm-orb: var(--hausarzt-rgb-warm-orb);
+}
+
+.hausarzt-hero {
+  display: grid;
+  gap: var(--space-8);
+  margin-top: calc(var(--space-12) + var(--space-2));
+  margin-bottom: var(--space-12);
+}
+
+.hausarzt-hero-label {
+  width: fit-content;
+  margin: 0;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: var(--color-primary-strong);
+}
+
+.hausarzt-hero-copy {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.hausarzt-hero-question {
+  margin: 0;
+  max-width: 34ch;
+  color: var(--color-text-title);
+  font-size: clamp(1.08rem, 2.35vw, 1.26rem);
+  line-height: 1.42;
+  letter-spacing: -0.005em;
+}
+
+.hausarzt-hero .lead {
+  max-width: 60ch;
+}
+
+.hausarzt-hero-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: var(--space-2);
+  color: var(--color-text-body);
+}
+
+.hausarzt-hero-meta {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text-muted) 86%, transparent 14%);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+.hausarzt-hero-compare {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.hausarzt-hero-card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: 18px;
+  border: 1px solid var(--color-border-soft);
+  background: var(--color-surface);
+  box-shadow: 0 8px 20px rgba(var(--rgb-text-strong), 0.04);
+}
+
+.hausarzt-hero-card.is-before {
+  background: color-mix(in srgb, var(--color-surface) 84%, #e7ecef 16%);
+  box-shadow: 0 6px 16px rgba(var(--rgb-text-strong), 0.03);
+}
+
+.hausarzt-hero-card.is-after {
+  background: color-mix(in srgb, var(--color-surface) 78%, var(--color-primary-surface-hover) 22%);
+  box-shadow: 0 14px 30px rgba(var(--rgb-primary-strong), 0.13);
+  padding: calc(var(--space-5) + 0.6rem);
+}
+
+.hausarzt-hero-wireframe {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.wf-row {
+  height: 0.72rem;
+  border-radius: 999px;
+}
+
+.wf-row.wf-neutral {
+  background: color-mix(in srgb, #6f7c83 22%, transparent 78%);
+}
+
+.wf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.wf-chip {
+  height: 2rem;
+  border-radius: 10px;
+}
+
+.wf-chip.wf-neutral {
+  background: color-mix(in srgb, #5f6b72 18%, transparent 82%);
+}
+
+.wf-row.wf-hero {
+  height: 1rem;
+  background: color-mix(in srgb, var(--color-primary-strong) 24%, transparent 76%);
+}
+
+.wf-cta {
+  width: 54%;
+  height: 2.2rem;
+  border-radius: 12px;
+  background: var(--color-primary);
+}
+
+.wf-row.wf-info {
+  background: color-mix(in srgb, var(--color-primary-strong) 18%, transparent 82%);
+}
+
+.wf-row.wf-info.short {
+  width: 72%;
+}
+
+.wf-team {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.wf-avatar {
+  height: 2.4rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-primary-soft) 28%, transparent 72%);
+}
+
+.hausarzt-hero-divider {
+  display: grid;
+  justify-items: center;
+  gap: 0.28rem;
+  margin: 0.2rem 0;
+  color: color-mix(in srgb, var(--color-text-muted) 74%, transparent 26%);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.hausarzt-hero-divider::before,
+.hausarzt-hero-divider::after {
+  content: '';
+  width: 1px;
+  height: 2.1rem;
+  background: color-mix(in srgb, var(--color-border-soft) 72%, transparent 28%);
+}
+
+.hausarzt-hero-divider-arrow {
+  color: color-mix(in srgb, var(--color-primary-strong) 62%, var(--color-text-muted) 38%);
+  font-size: 1rem;
+}
+
+.hausarzt-hero-caption {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text-muted) 88%, transparent 12%);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.hausarzt-hero-card.is-before .hausarzt-hero-caption {
+  color: color-mix(in srgb, var(--color-text-muted) 76%, transparent 24%);
+  font-size: 0.76rem;
+}
+
+.hausarzt-hero-card.is-after .hausarzt-hero-caption {
+  color: color-mix(in srgb, var(--color-text-body) 84%, var(--color-text-muted) 16%);
+}
+
+.hausarzt-problem-thesis {
+  margin-top: calc(var(--space-12) + var(--space-2));
+  margin-bottom: calc(var(--space-12) + var(--space-2));
+  gap: var(--space-5);
+}
+
+.hausarzt-decision-nav {
+  margin-top: calc(var(--space-10) + var(--space-2));
+  margin-bottom: calc(var(--space-10) + var(--space-2));
+  gap: var(--space-4);
+  padding: 0.2rem 0;
+}
+
+.hausarzt-decision-nav-card {
+  max-width: 620px;
+  display: grid;
+  gap: var(--space-4);
+  padding: clamp(3rem, 7vw, 3.5rem);
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--color-surface) 88%, #f4f1ee 12%);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.05);
+}
+
+.hausarzt-decision-nav-card > h2 {
+  max-width: 18ch;
+  font-size: clamp(1.35rem, 3.6vw, 1.8rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: color-mix(in srgb, var(--color-text-title) 96%, var(--color-text-body) 4%);
+}
+
+.hausarzt-decision-nav-intro {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--color-text-body);
+  line-height: 1.65;
+  margin-bottom: var(--space-3);
+}
+
+.hausarzt-decision-nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.72rem;
+  max-width: 100%;
+}
+
+.hausarzt-decision-nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.15rem;
+  text-align: left;
+  border: 0;
+  background: color-mix(in srgb, var(--color-surface) 94%, var(--color-surface-soft) 6%);
+  color: var(--color-text-title);
+  border-radius: 12px;
+  min-height: 3rem;
+  padding: 0.88rem 1.15rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  font-weight: 500;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    transform 140ms ease;
+  cursor: pointer;
+}
+
+.hausarzt-decision-nav-item.is-primary {
+  background: color-mix(in srgb, var(--color-primary-surface-hover) 54%, var(--color-surface) 46%);
+  box-shadow: 0 10px 20px rgba(var(--rgb-primary-strong), 0.11);
+  font-weight: 620;
+}
+
+.hausarzt-decision-nav-item:hover,
+.hausarzt-decision-nav-item:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(var(--rgb-primary-strong), 0.09);
+}
+
+.hausarzt-decision-nav-item:not(.is-primary):hover,
+.hausarzt-decision-nav-item:not(.is-primary):focus-visible {
+  background: color-mix(in srgb, var(--color-surface) 94%, var(--color-surface-soft) 6%);
+}
+
+.hausarzt-decision-nav-item:active {
+  transform: translateY(1px);
+}
+
+.hausarzt-decision-nav-item:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-focus-ring) 72%, transparent 28%);
+  outline-offset: 2px;
+}
+
+.hausarzt-decision-nav-arrow {
+  margin-left: auto;
+  color: color-mix(in srgb, var(--color-text-muted) 84%, transparent 16%);
+  font-size: 0.94rem;
+  line-height: 1;
+  transition: transform 140ms ease, color 160ms ease;
+}
+
+.hausarzt-decision-nav-item.is-primary .hausarzt-decision-nav-arrow {
+  color: color-mix(in srgb, var(--color-text-title) 82%, var(--color-text-muted) 18%);
+}
+
+.hausarzt-decision-nav-item:hover .hausarzt-decision-nav-arrow,
+.hausarzt-decision-nav-item:focus-visible .hausarzt-decision-nav-arrow {
+  transform: translateX(2px);
+}
+
+.hausarzt-decision-nav-note {
+  margin: 0;
+  max-width: 68ch;
+  color: color-mix(in srgb, var(--color-text-muted) 88%, transparent 12%);
+  font-size: 0.84rem;
+  line-height: 1.58;
+}
+
+.hausarzt-services {
+  margin-top: calc(var(--space-10) + var(--space-2));
+  margin-bottom: calc(var(--space-12) + var(--space-2));
+  gap: var(--space-5);
+}
+
+.hausarzt-services > h2 {
+  max-width: 24ch;
+}
+
+.hausarzt-services-card {
+  max-width: 720px;
+  display: grid;
+  gap: var(--space-5);
+  padding: clamp(1.2rem, 3.8vw, 2rem);
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--color-surface) 93%, var(--color-surface-soft) 7%);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.05);
+}
+
+.hausarzt-services-intro {
+  margin: 0;
+  max-width: 58ch;
+  color: color-mix(in srgb, var(--color-text-body) 86%, var(--color-text-muted) 14%);
+  line-height: 1.68;
+  margin-bottom: var(--space-3);
+}
+
+.hausarzt-services-groups {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.hausarzt-services-group {
+  display: grid;
+  gap: var(--space-3);
+  padding: 0.9rem 0.95rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-surface) 84%, var(--color-surface-soft) 16%);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.03);
+}
+
+.hausarzt-services-group + .hausarzt-services-group {
+  margin-top: 0;
+}
+
+.hausarzt-services-group h3 {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text-title) 94%, var(--color-text-body) 6%);
+  font-size: 1.14rem;
+  line-height: 1.4;
+  padding-top: 0.1rem;
+}
+
+.hausarzt-services-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+  max-width: 70ch;
+  color: color-mix(in srgb, var(--color-text-body) 94%, var(--color-text-muted) 6%);
+}
+
+.hausarzt-problem-thesis h2 {
+  max-width: 24ch;
+  color: var(--color-text-title);
+  letter-spacing: -0.01em;
+}
+
+.hausarzt-problem-thesis p {
+  margin: 0;
+  max-width: 66ch;
+  color: var(--color-text-body);
+  line-height: 1.7;
+}
+
+.hausarzt-problem-thesis-emphasis {
+  color: color-mix(in srgb, var(--color-text-title) 90%, var(--color-text-body) 10%);
+  font-size: 1.03em;
+}
+
+.hausarzt-analysis {
+  margin-top: calc(var(--space-12) + var(--space-2));
+  margin-bottom: calc(var(--space-12) + var(--space-2));
+  gap: calc(var(--space-10) + var(--space-4));
+}
+
+.hausarzt-analysis > h2 {
+  max-width: 26ch;
+}
+
+.hausarzt-analysis-item,
+.hausarzt-analysis-context {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.hausarzt-analysis-item h3,
+.hausarzt-analysis-context h3 {
+  margin: 0;
+  color: var(--color-text-title);
+  font-size: 1.08rem;
+  line-height: 1.45;
+}
+
+.hausarzt-analysis-stage {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--color-text-muted) 72%, transparent 28%);
+}
+
+.hausarzt-analysis-item p,
+.hausarzt-analysis-context p {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--color-text-body);
+  line-height: 1.7;
+}
+
+.hausarzt-analysis-figure {
+  margin: 0;
+  max-width: 760px;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.hausarzt-analysis-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-border-soft) 70%, transparent 30%);
+  box-shadow: 0 10px 24px rgba(var(--rgb-text-strong), 0.06);
+}
+
+.hausarzt-analysis-figure-note {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text-muted) 74%, transparent 26%);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  max-width: 72ch;
+  font-style: italic;
+}
+
+.hausarzt-analysis-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: var(--space-2);
+  max-width: 70ch;
+  color: var(--color-text-body);
+}
+
+.hausarzt-analysis-context {
+  margin-top: var(--space-4);
+  padding: var(--space-6);
+  border-left: 2px solid color-mix(in srgb, var(--color-border-soft) 90%, transparent 10%);
+  background: color-mix(in srgb, var(--color-surface) 86%, var(--color-primary-surface-hover) 14%);
+  border-radius: 0 14px 14px 0;
+}
+
+.hausarzt-analysis-context .hausarzt-analysis-stage {
+  color: color-mix(in srgb, var(--color-primary-strong) 60%, var(--color-text-muted) 40%);
+}
+
+.hausarzt-analysis-conclusion {
+  color: color-mix(in srgb, var(--color-text-title) 90%, var(--color-text-body) 10%);
+}
+
+.hausarzt-principles {
+  margin-top: calc(var(--space-12) + var(--space-2));
+  margin-bottom: calc(var(--space-12) + var(--space-2));
+  gap: var(--space-8);
+}
+
+.hausarzt-principles > h2 {
+  max-width: 28ch;
+}
+
+.hausarzt-principles-list {
+  display: grid;
+  gap: calc(var(--space-8) + var(--space-2));
+}
+
+.hausarzt-principle-item {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.hausarzt-principle-item h3 {
+  margin: 0;
+  color: var(--color-text-title);
+  font-size: 1.08rem;
+  line-height: 1.45;
+}
+
+.hausarzt-principle-item p {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--color-text-body);
+  line-height: 1.7;
+}
+
+.hausarzt-principle-item strong {
+  color: color-mix(in srgb, var(--color-text-title) 88%, var(--color-text-body) 12%);
+}
+
+.hausarzt-principles-bullets {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: var(--space-2);
+  max-width: 70ch;
+  color: var(--color-text-body);
+}
+
+.hausarzt-principles-conclusion {
+  margin: 0;
+  max-width: 68ch;
+  color: color-mix(in srgb, var(--color-text-title) 92%, var(--color-text-body) 8%);
+  font-size: clamp(1.02rem, 2.1vw, 1.14rem);
+  line-height: 1.6;
+  letter-spacing: -0.003em;
+}
+
+.hausarzt-ia-model {
+  margin-top: calc(var(--space-12) + var(--space-2));
+  margin-bottom: calc(var(--space-12) + var(--space-2));
+  gap: var(--space-6);
+}
+
+.hausarzt-ia-model > h2 {
+  max-width: 28ch;
+}
+
+.hausarzt-ia-intro {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--color-text-body);
+  line-height: 1.7;
+}
+
+.hausarzt-ia-flow {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: calc(var(--space-3) + 0.1rem);
+  max-width: 760px;
+  position: relative;
+  padding-left: 1.1rem;
+}
+
+.hausarzt-ia-flow::before {
+  content: '';
+  position: absolute;
+  left: 0.62rem;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  width: 1px;
+  background: color-mix(in srgb, var(--color-border-soft) 90%, transparent 10%);
+}
+
+.hausarzt-ia-step {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: 0.4rem 0 0.4rem 0.65rem;
+}
+
+.hausarzt-ia-step::before {
+  content: '';
+  position: absolute;
+  left: -0.58rem;
+  top: 0.98rem;
+  width: 0.48rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-border-soft) 80%, transparent 20%);
+}
+
+.hausarzt-ia-step-number {
+  min-width: 1.25rem;
+  display: inline-block;
+  font-size: 0.74rem;
+  line-height: 1.4;
+  font-weight: 650;
+  color: color-mix(in srgb, var(--color-text-muted) 92%, transparent 8%);
+}
+
+.hausarzt-ia-step-label {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text-title) 90%, var(--color-text-body) 10%);
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.hausarzt-ia-conclusion {
+  margin: calc(var(--space-6) + 0.2rem) 0 0;
+  max-width: 62ch;
+  color: color-mix(in srgb, var(--color-text-title) 96%, var(--color-text-body) 4%);
+  font-size: clamp(1.08rem, 2.3vw, 1.2rem);
+  line-height: 1.58;
+  letter-spacing: -0.004em;
+}
+
+.hausarzt-redesign-hero {
+  margin-top: calc(var(--space-12) + var(--space-2));
+  margin-bottom: calc(var(--space-12) + var(--space-2));
+  gap: var(--space-6);
+}
+
+.hausarzt-redesign-hero > h2 {
+  max-width: 30ch;
+}
+
+.hausarzt-redesign-hero-intro {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--color-text-body);
+  line-height: 1.7;
+}
+
+.hausarzt-redesign-note {
+  margin: 0;
+  max-width: 66ch;
+  color: color-mix(in srgb, var(--color-text-muted) 88%, transparent 12%);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.hausarzt-redesign-canvas {
+  max-width: 520px;
+  display: grid;
+  gap: var(--space-4);
+  padding: clamp(1.3rem, 3.5vw, 1.8rem);
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--color-border-soft) 86%, transparent 14%);
+  background: color-mix(in srgb, var(--color-surface) 88%, var(--color-primary-surface-hover) 12%);
+  box-shadow: 0 12px 28px rgba(var(--rgb-primary-strong), 0.08);
+}
+
+.hausarzt-redesign-title {
+  margin: 0;
+  color: var(--color-text-title);
+  font-size: clamp(1.65rem, 6vw, 2.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.hausarzt-redesign-copy {
+  margin: 0;
+  max-width: 42ch;
+  color: var(--color-text-body);
+  line-height: 1.65;
+}
+
+.hausarzt-redesign-primary-cta {
+  width: fit-content;
+  min-height: 3rem;
+  padding: 0.7rem 1.2rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: #f7fbfc;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  cursor: default;
+  box-shadow: 0 10px 20px rgba(var(--rgb-primary-strong), 0.2);
+  margin-top: var(--space-3);
+}
+
+.hausarzt-redesign-secondary-contact {
+  margin-top: 0.35rem;
+  padding-top: 0.55rem;
+  display: grid;
+  gap: 0.08rem;
+}
+
+.hausarzt-redesign-contact-kicker {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text-muted) 84%, transparent 16%);
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+
+.hausarzt-redesign-contact-line {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text-body) 84%, var(--color-text-muted) 16%);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.hausarzt-redesign-contact-meta {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text-muted) 86%, transparent 14%);
+  font-size: 0.76rem;
+}
+
 .project-problem-editorial {
   display: grid;
   gap: var(--space-6);
@@ -727,6 +1473,52 @@ h3 {
   color: var(--color-text-muted);
   font-size: 0.92rem;
   margin-top: var(--space-2);
+}
+
+.project-impact {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.project-impact-intro {
+  color: var(--color-text-body);
+  max-width: 66ch;
+}
+
+.project-impact-list {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.project-impact-block {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.project-impact-block h3 {
+  margin: 0;
+  color: var(--color-text-title);
+  font-size: 1.06rem;
+  line-height: 1.4;
+}
+
+.project-impact-block p {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--color-text-body);
+}
+
+.project-impact-metrics {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: var(--space-3);
+  color: var(--color-text-body);
+}
+
+.project-impact-metrics strong {
+  color: var(--color-text-title);
+  font-weight: 600;
 }
 
 .design-decisions {
@@ -1315,7 +2107,7 @@ h3 {
 
 .form-grid {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-5);
 }
 
 .field {
@@ -1328,50 +2120,413 @@ h3 {
   color: var(--text-muted);
 }
 
+.form-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--color-text-muted) 82%, transparent 18%);
+}
+
+.form-progress-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  line-height: 1;
+}
+
+.form-progress-step::before {
+  content: '';
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 78%, transparent 22%);
+  background: color-mix(in srgb, var(--color-surface-soft) 82%, transparent 18%);
+}
+
+.form-progress-step.is-done {
+  color: color-mix(in srgb, var(--color-primary-strong) 76%, var(--color-text-muted) 24%);
+}
+
+.form-progress-step.is-done::before {
+  border-color: color-mix(in srgb, var(--color-primary-soft) 68%, transparent 32%);
+  background: color-mix(in srgb, var(--color-primary-soft) 58%, var(--color-surface) 42%);
+}
+
+.form-progress-step.is-current {
+  color: color-mix(in srgb, var(--color-text-title) 78%, var(--color-text-muted) 22%);
+}
+
+.form-progress-step.is-current::before {
+  border-color: color-mix(in srgb, var(--color-primary-strong) 56%, transparent 44%);
+  background: color-mix(in srgb, var(--color-primary-strong) 20%, var(--color-surface) 80%);
+}
+
+.form-progress-step:not(:last-child)::after {
+  content: '';
+  display: inline-block;
+  width: 0.6rem;
+  height: 1px;
+  margin-left: 0.12rem;
+  background: color-mix(in srgb, var(--color-border) 72%, transparent 28%);
+  vertical-align: middle;
+}
+
+.booking-form {
+  display: grid;
+}
+
+.booking-form.is-complete {
+  opacity: 0.9;
+  filter: saturate(0.9);
+}
+
+.booking-form.is-complete .submit-btn:disabled {
+  opacity: 0.84;
+}
+
+.form-success {
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-primary-soft) 54%, transparent 46%);
+  background: color-mix(in srgb, var(--color-primary-surface-hover) 66%, var(--color-surface) 34%);
+  color: var(--color-text-title);
+  box-shadow: 0 10px 26px rgba(var(--rgb-primary-strong), 0.08);
+  display: grid;
+  gap: var(--space-2);
+  animation: success-state-reveal 300ms ease-out both;
+}
+
+.form-success-title {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.04rem;
+  font-weight: 650;
+  color: var(--color-text-title);
+}
+
+.form-success-check {
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.76rem;
+  line-height: 1;
+  color: var(--color-primary-strong);
+  border: 1px solid color-mix(in srgb, var(--color-primary-soft) 65%, transparent 35%);
+  background: color-mix(in srgb, var(--color-primary-surface-hover) 72%, transparent 28%);
+}
+
+.form-success-message {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text-title) 90%, var(--color-text-muted) 10%);
+}
+
+.form-success-note {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+}
+
+.form-success-summary {
+  margin: var(--space-2) 0 0;
+  padding-top: var(--space-3);
+  border-top: 1px solid color-mix(in srgb, var(--color-primary-soft) 30%, transparent 70%);
+  display: grid;
+  gap: 0.42rem;
+}
+
+.form-success-summary-item {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1rem 1fr;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.form-success-summary-item dt {
+  margin: 0;
+  line-height: 1;
+  font-size: 0.86rem;
+}
+
+.form-success-summary-item dd {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text-title) 88%, var(--color-text-muted) 12%);
+}
+
+.success-reset-btn {
+  margin-top: var(--space-2);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-primary-strong);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-primary-soft) 72%, transparent 28%);
+  text-underline-offset: 0.18rem;
+  width: fit-content;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.success-reset-btn:hover {
+  color: var(--color-primary-hover);
+}
+
+.success-reset-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-focus-ring) 76%, transparent 24%);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.input-wrap {
+  position: relative;
+  display: grid;
+}
+
 .input {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 0.7rem 0.8rem;
+  min-height: 3.15rem;
+  padding: 0.9rem 1rem;
   background: var(--surface);
   color: var(--text-main);
   font-size: 0.95rem;
+  transition:
+    border-color 150ms ease-out,
+    background-color 150ms ease-out,
+    box-shadow 150ms ease-out;
+}
+
+.field-focused .input,
+.input-focused {
+  border-color: color-mix(in srgb, var(--color-primary-strong) 58%, var(--color-border) 42%);
+  background: color-mix(in srgb, var(--color-primary) 3%, var(--color-surface) 97%);
+}
+
+.field-valid .input,
+.input-valid {
+  border-color: color-mix(in srgb, var(--color-primary-soft) 58%, var(--color-border) 42%);
+}
+
+.field-error .input,
+.input-error {
+  border-color: color-mix(in srgb, var(--color-error) 58%, var(--color-border) 42%);
+}
+
+.field-disabled .input,
+.input-disabled {
+  opacity: 0.72;
+  background: color-mix(in srgb, var(--color-surface-soft) 70%, var(--color-surface) 30%);
+  cursor: not-allowed;
 }
 
 .textarea {
   resize: vertical;
+  min-height: 8.5rem;
 }
 
-.input:focus {
+.input:focus-visible:not(.input-error) {
   outline: 2px solid var(--color-focus-ring);
   border-color: var(--accent);
 }
 
-.input-error,
-.field-error {
-  border-color: var(--error);
+.input-error:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-error) 46%, transparent 54%);
+  border-color: color-mix(in srgb, var(--color-error) 62%, var(--color-border) 38%);
+}
+
+.input-valid-indicator {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-primary-soft) 68%, transparent 32%);
+  background: color-mix(in srgb, var(--color-primary-surface-hover) 72%, transparent 28%);
+  transform: translateY(-50%);
+  opacity: 0;
+  animation: valid-indicator-fade 200ms ease-out forwards;
+}
+
+.input-valid-indicator::after {
+  content: '';
+  position: absolute;
+  left: 0.28rem;
+  top: 0.18rem;
+  width: 0.3rem;
+  height: 0.5rem;
+  border-right: 1.5px solid var(--color-primary-strong);
+  border-bottom: 1.5px solid var(--color-primary-strong);
+  transform: rotate(42deg);
 }
 
 .radio-group {
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-4);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: var(--space-4);
+  padding: var(--space-5);
+}
+
+.radio-group-focused {
+  border-color: color-mix(in srgb, var(--color-primary-strong) 58%, var(--color-border) 42%);
+  background: color-mix(in srgb, var(--color-primary) 2%, var(--color-surface) 98%);
+}
+
+.radio-group-valid {
+  border-color: color-mix(in srgb, var(--color-primary-soft) 58%, var(--color-border) 42%);
+}
+
+.radio-group-error {
+  border-color: color-mix(in srgb, var(--color-error) 70%, var(--color-border) 30%);
+}
+
+.radio-group-disabled {
+  opacity: 0.72;
 }
 
 .radio-group label {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: var(--space-2);
-  margin-right: var(--space-4);
+  padding: 0.2rem 0;
+}
+
+.radio-group input[type='radio'] {
+  accent-color: var(--color-primary-strong);
+}
+
+.radio-group label + label {
+  margin-top: 0.35rem;
 }
 
 .error-text {
   color: var(--error);
   font-size: 0.85rem;
+  margin: 0;
+  animation: form-feedback-fade 180ms ease-out both;
 }
 
 .submit-btn {
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
+  min-height: 2.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition:
+    transform 120ms ease-out,
+    background-color 150ms ease-out,
+    box-shadow 150ms ease-out,
+    opacity 150ms ease-out;
+}
+
+.submit-btn:not(:disabled) {
+  box-shadow: 0 10px 18px rgba(var(--rgb-primary-strong), 0.14);
+}
+
+.submit-btn:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+.submit-btn:disabled {
+  opacity: 0.56;
+  box-shadow: none;
+}
+
+.submit-btn.is-loading {
+  cursor: wait;
+}
+
+.btn-spinner {
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--color-surface) 52%, transparent 48%);
+  border-top-color: var(--color-surface);
+  animation: button-spin 720ms linear infinite;
+}
+
+.form-trust-note {
+  position: relative;
+  margin: var(--space-3) 0 0;
+  padding-top: var(--space-3);
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.form-trust-note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-primary-soft) 34%, transparent 66%);
+}
+
+.form-trust-dot {
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-primary-soft) 55%, transparent 45%);
+  background: color-mix(in srgb, var(--color-primary-surface-hover) 64%, transparent 36%);
+}
+
+@keyframes valid-indicator-fade {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+@keyframes form-feedback-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes success-state-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .confirmation {
@@ -1448,6 +2603,17 @@ h3 {
     gap: var(--space-8);
   }
 
+  .project-impact-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-10);
+    row-gap: var(--space-10);
+  }
+
+  .project-impact-block:nth-child(4),
+  .project-impact-block:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
   .decision-block {
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
     gap: var(--space-8);
@@ -1464,6 +2630,30 @@ h3 {
 
   .form-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hausarzt-hero {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: start;
+    column-gap: var(--space-8);
+  }
+
+  .hausarzt-hero-compare {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--space-3);
+  }
+
+  .hausarzt-hero-divider {
+    min-height: 100%;
+    align-content: center;
+    justify-items: center;
+    padding: 0 var(--space-2);
+  }
+
+  .hausarzt-hero-divider::before,
+  .hausarzt-hero-divider::after {
+    height: 4.1rem;
   }
 }
 
@@ -1608,7 +2798,11 @@ h3 {
   .time-slot-flow-anchor.flow-highlight .booking-section,
   .calendar-cell.day.pressing:not(:disabled),
   .time-slot.pressing:not(:disabled),
-  .time-slot-section {
+  .time-slot-section,
+  .btn-spinner,
+  .form-success,
+  .error-text,
+  .input-valid-indicator {
     animation: none;
     transition: none;
   }

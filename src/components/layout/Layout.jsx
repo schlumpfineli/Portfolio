@@ -9,7 +9,7 @@ function Layout() {
         <Outlet />
       </main>
       <footer className="container footer">
-        <p>Selina Schindler - Frontend Developer fuer digitale Care-Produkte</p>
+        <p>Selina Schindler - Frontend Developer für digitale Care-Produkte</p>
       </footer>
     </div>
   )

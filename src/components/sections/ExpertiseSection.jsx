@@ -4,7 +4,7 @@ function ExpertiseSection() {
       id: 'care-ux',
       className: 'expertise-item-1',
       title: 'Care UX & Accessibility',
-      text: 'Komplexe Prozesse werden in klare, ruhige Interaktionen ueberfuehrt.',
+      text: 'Komplexe Prozesse werden in klare, ruhige Interaktionen überführt.',
     },
     {
       id: 'interactive-frontends',

@@ -25,9 +25,9 @@ function Hero() {
         <div className="hero-divider" aria-hidden="true" />
 
         <p className="hero-copy">
-          Frontend-Entwicklerin fuer digitale Care-Produkte.
+          Frontend-Entwicklerin für digitale Care-Produkte.
           <strong> UX, Interfaces &amp; State -</strong> empathisch gedacht,
-          praezise gebaut.
+          präzise gebaut.
         </p>
 
         <div className="hero-actions">
@@ -43,7 +43,7 @@ function Hero() {
 
         <p className="hero-availability">
           <span className="hero-availability-dot" />
-          Verfuegbar fuer Projekte
+          Verfügbar für Projekte
         </p>
 
         <div className="hero-scroll" aria-hidden="true">

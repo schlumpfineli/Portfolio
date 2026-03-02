@@ -4,9 +4,9 @@ export const projects = [
     title: 'Tierarzt Termin- & Praxiswebsite',
     sector: 'Tiermedizin',
     description:
-      'Mobile-first Praxiswebsite mit strukturierter Terminfuehrung und reduzierter kognitiver Belastung.',
+      'Mobile-first Praxiswebsite mit strukturierter Terminführung und reduzierter kognitiver Belastung.',
     tags: ['UX', 'State Management', 'Responsive'],
-    href: '/projekte/redesign-haustierarztpraxis-baar',
+    href: '/projekte/tierarzt-terminbuchung',
     previewTone: 'mint',
   },
   {
@@ -14,16 +14,17 @@ export const projects = [
     title: 'Digitale Hausarztpraxis',
     sector: 'Health',
     description:
-      'Informationsarchitektur und Terminlogik fuer eine vertrauensbildende, barrierearme Praxiswebsite.',
+      'Informationsarchitektur und Terminlogik für eine vertrauensbildende, barrierearme Praxiswebsite.',
     tags: ['Accessibility', 'UX', 'Design System'],
+    href: '/projekte/digitale-hausarztpraxis',
     previewTone: 'lavender',
   },
   {
     id: 'ernaehrungstagebuch',
-    title: 'Digitales Ernaehrungstagebuch',
+    title: 'Digitales Ernährungstagebuch',
     sector: 'Care-Tech',
     description:
-      'Interaktive Tracking-Loesung mit klarer Statusfuehrung und motivierender Progress-Logik.',
+      'Interaktive Tracking-Lösung mit klarer Statusführung und motivierender Progress-Logik.',
     tags: ['React', 'State Handling', 'Interface Design'],
     previewTone: 'warm',
   },

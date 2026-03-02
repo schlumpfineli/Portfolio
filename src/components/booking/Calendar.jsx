@@ -87,7 +87,7 @@ function Calendar({
     <section className="booking-section">
       <div className="calendar-header">
         <p className="calendar-helper">Wählen Sie ein passendes Datum</p>
-        <h3>Datum auswaehlen</h3>
+        <h3>Datum auswählen</h3>
         <div className="calendar-controls">
           <button
             type="button"
@@ -107,7 +107,7 @@ function Calendar({
             type="button"
             className="icon-btn"
             onClick={handleNextMonth}
-            aria-label="Naechster Monat"
+            aria-label="Nächster Monat"
           >
             ›
           </button>
@@ -133,8 +133,8 @@ function Calendar({
           const isWeekend = date.getDay() === 0 || date.getDay() === 6
           const isPressed = pressedDayKey === date.toDateString()
           const dayAvailabilityLabel = unavailable
-            ? 'keine Termine verfuegbar'
-            : 'verfuegbar'
+            ? 'keine Termine verfügbar'
+            : 'verfügbar'
           const businessClasses = [
             businessState.isPast ? 'business-past' : '',
             businessState.isFullyBooked ? 'business-fully-booked' : '',
@@ -171,7 +171,7 @@ function Calendar({
               })}, ${dayAvailabilityLabel}`}
               aria-pressed={isSelected}
               aria-current={isToday ? 'date' : undefined}
-              title={unavailable ? 'Keine Termine verfuegbar' : undefined}
+              title={unavailable ? 'Keine Termine verfügbar' : undefined}
             >
               {date.getDate()}
             </button>

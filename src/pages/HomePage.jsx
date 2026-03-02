@@ -8,7 +8,7 @@ const PROJECTS_INTRO =
   'Digitale Care-Produkte brauchen Klarheit, Struktur und Vertrauen. Hier eine Auswahl konzeptioneller und interaktiver Arbeiten.'
 
 const EDITORIAL_STATEMENT =
-  'Gute Care-Produkte reduzieren Unsicherheit. Sie fuehren Menschen ruhig durch komplexe Momente - mit Klarheit in jeder Interaktion.'
+  'Gute Care-Produkte reduzieren Unsicherheit. Sie führen Menschen ruhig durch komplexe Momente - mit Klarheit in jeder Interaktion.'
 
 function HomePage() {
   return (
@@ -16,7 +16,7 @@ function HomePage() {
       <Hero />
 
       <section className="section projects-section">
-        <h2>Ausgewaehlte Projekte</h2>
+        <h2>Ausgewählte Projekte</h2>
         <p className="projects-intro">{PROJECTS_INTRO}</p>
         <div className="project-grid">
           {projects.map((project, index) => (

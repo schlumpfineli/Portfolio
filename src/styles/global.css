@@ -76,6 +76,35 @@
   --accent-peach: #ffbfa3;
   --border: #dbe7df;
   --error: var(--color-error);
+
+  /* =========================================
+     Hausarztpraxis / Soft Medical Blue Theme
+     Reduced token set (deduplicated for this project)
+     ========================================= */
+  --hausarzt-color-bg: #f6fafb;
+  --hausarzt-color-bg-gradient-top: #eaf3f5;
+  --hausarzt-color-surface: #ffffff;
+  --hausarzt-color-surface-soft: #f2f7f8;
+  --hausarzt-color-surface-muted: #eaf3f5;
+  --hausarzt-color-primary: #2f6e7f;
+  --hausarzt-color-primary-strong: #285f6d;
+  --hausarzt-color-primary-hover: #214f5b;
+  --hausarzt-color-primary-soft: #7fa6a0;
+  --hausarzt-color-primary-surface-hover: #eaf3f5;
+  --hausarzt-color-focus-ring: rgba(47, 110, 127, 0.35);
+  --hausarzt-color-text-strong: #1f2a2e;
+  --hausarzt-color-text-title: #1f2a2e;
+  --hausarzt-color-text-body: #4c5b60;
+  --hausarzt-color-text-muted: #708287;
+  --hausarzt-color-border: #d6e2e5;
+  --hausarzt-color-border-soft: #bfd1d6;
+  --hausarzt-color-warm-accent: #7fa6a0;
+  --hausarzt-color-warm-accent-soft: #b0d2dc;
+  --hausarzt-color-lavender: #b0d2dc;
+  --hausarzt-rgb-primary-strong: 47 110 127;
+  --hausarzt-rgb-green-orb: 47 110 127;
+  --hausarzt-rgb-lavender-orb: 127 166 160;
+  --hausarzt-rgb-warm-orb: 176 210 220;
 }
 
 *,
@@ -98,6 +127,38 @@ body {
   background: linear-gradient(180deg, var(--color-bg-gradient-top) 0%, var(--color-bg) 100%);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+}
+
+body.theme-hausarzt {
+  --color-bg: var(--hausarzt-color-bg);
+  --color-bg-gradient-top: var(--hausarzt-color-bg-gradient-top);
+  --color-surface: var(--hausarzt-color-surface);
+  --color-surface-soft: var(--hausarzt-color-surface-soft);
+  --color-surface-muted: var(--hausarzt-color-surface-muted);
+  --color-primary: var(--hausarzt-color-primary);
+  --color-primary-strong: var(--hausarzt-color-primary-strong);
+  --color-primary-hover: var(--hausarzt-color-primary-hover);
+  --color-primary-soft: var(--hausarzt-color-primary-soft);
+  --color-primary-surface-hover: var(--hausarzt-color-primary-surface-hover);
+  --color-focus-ring: var(--hausarzt-color-focus-ring);
+  --color-text-strong: var(--hausarzt-color-text-strong);
+  --color-text-title: var(--hausarzt-color-text-title);
+  --color-text-body: var(--hausarzt-color-text-body);
+  --color-text-muted: var(--hausarzt-color-text-muted);
+  --color-border: var(--hausarzt-color-border);
+  --color-border-soft: var(--hausarzt-color-border-soft);
+  --color-warm-accent: var(--hausarzt-color-warm-accent);
+  --color-warm-accent-soft: var(--hausarzt-color-warm-accent-soft);
+  --color-lavender: var(--hausarzt-color-lavender);
+  --color-eyebrow-bg: color-mix(in srgb, var(--hausarzt-color-primary-surface-hover) 70%, #ffffff 30%);
+  --color-nav-overlay: rgba(246, 250, 251, 0.88);
+  --color-nav-border: rgba(191, 209, 214, 0.72);
+  --color-scroll-line: rgba(112, 130, 135, 0.32);
+  --color-kicker: rgba(47, 110, 127, 0.52);
+  --rgb-primary-strong: var(--hausarzt-rgb-primary-strong);
+  --rgb-green-orb: var(--hausarzt-rgb-green-orb);
+  --rgb-lavender-orb: var(--hausarzt-rgb-lavender-orb);
+  --rgb-warm-orb: var(--hausarzt-rgb-warm-orb);
 }
 
 a {

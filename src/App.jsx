@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout'
 import HomePage from './pages/HomePage'
+import HausarztProjectPage from './pages/HausarztProjectPage'
 import ProjectDetailPage from './pages/ProjectDetailPage'
-import RedesignCaseStudyPage from './pages/RedesignCaseStudyPage'
 
 function App() {
   return (
@@ -14,8 +14,12 @@ function App() {
           element={<ProjectDetailPage />}
         />
         <Route
+          path="/projekte/digitale-hausarztpraxis"
+          element={<HausarztProjectPage />}
+        />
+        <Route
           path="/projekte/redesign-haustierarztpraxis-baar"
-          element={<RedesignCaseStudyPage />}
+          element={<Navigate to="/projekte/tierarzt-terminbuchung" replace />}
         />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />

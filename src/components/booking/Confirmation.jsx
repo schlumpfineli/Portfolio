@@ -6,7 +6,7 @@ function Confirmation({ selectedDate, selectedTime, name }) {
     <section className="confirmation">
       <h3>Termin erfolgreich vorgemerkt</h3>
       <p>
-        Danke {name}, deine Anfrage wurde simuliert und erfolgreich uebernommen.
+        Danke {name}, deine Anfrage wurde simuliert und erfolgreich übernommen.
       </p>
       <div className="confirmation-meta">
         <p>
@@ -23,7 +23,7 @@ function Confirmation({ selectedDate, selectedTime, name }) {
         </p>
       </div>
       <Link to="/">
-        <Button variant="secondary">Zurueck zur Startseite</Button>
+        <Button variant="secondary">Zurück zur Startseite</Button>
       </Link>
     </section>
   )
